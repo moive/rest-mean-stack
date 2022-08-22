@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/user";
+import bcryptjs from "bcryptjs";
 
 const userRegister = async (req: Request, res: Response) => {
 	const { email, password, username } = req.body;
@@ -13,13 +14,16 @@ const userRegister = async (req: Request, res: Response) => {
 
 		const newUser = new User({ email, password, username });
 
+		const salt = bcryptjs.genSaltSync(12);
+		newUser.password = bcryptjs.hashSync(password, salt);
+
 		await newUser.save();
 
 		res.json({
 			ok: true,
+			id: newUser.id,
 			email,
 			username,
-			password,
 			msg: "User created",
 		});
 	} catch (error) {
