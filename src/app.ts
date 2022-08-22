@@ -10,6 +10,7 @@ app.set("port", config.app.port);
 
 // Middlewares
 app.use(morgan("dev"));
+app.use(express.json());
 
 // Routes
 app.use("/auth", authRouter);
