@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
-    "dev":"ts-node-dev src/index.ts",
-    "cp":"cp -r src/public build",
+    "dev": "ts-node-dev src/index.ts",
+    "cp": "cp -r src/public build",
     "start": "npm run tsc && npm run cp && node build/index.js"
   },
   "author": "Moive",
