@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import config from "./config";
 import authRouter from "./routes/auth";
+import cors from "cors";
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.set("port", config.app.port);
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use("/auth", authRouter);
