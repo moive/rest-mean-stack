@@ -2,8 +2,18 @@ import { Request, Response } from "express";
 import User from "../models/user";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { validationResult } from "express-validator";
 
 const userRegister = async (req: Request, res: Response) => {
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		res.status(501).json({
+			ok: false,
+			errors: errors.mapped(),
+		});
+	}
+
 	const { email, password, username } = req.body;
 
 	try {
