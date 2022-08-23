@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/user";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const userRegister = async (req: Request, res: Response) => {
 	const { email, password, username } = req.body;
@@ -19,13 +20,24 @@ const userRegister = async (req: Request, res: Response) => {
 
 		await newUser.save();
 
-		res.json({
-			ok: true,
+		const payload = {
 			id: newUser.id,
-			email,
-			username,
-			msg: "User created",
-		});
+		};
+
+		jwt.sign(
+			payload,
+			process.env.SECRET!,
+			{ expiresIn: 3600 },
+			(error, token) => {
+				res.json({
+					ok: true,
+					id: newUser.id,
+					username,
+					msg: "User created",
+					token,
+				});
+			}
+		);
 	} catch (error) {
 		console.log(error);
 		res.json({
@@ -35,8 +47,52 @@ const userRegister = async (req: Request, res: Response) => {
 	}
 };
 
-const userLogin = (req: Request, res: Response) => {
-	res.send("Auth server controller");
+const userLogin = async (req: Request, res: Response) => {
+	const { email, password } = req.body;
+
+	try {
+		let user = await User.findOne({ email });
+
+		if (!user) {
+			res.status(401).json({
+				ok: false,
+				msg: "Email or password are invalid",
+			});
+		}
+
+		const passwordValid = bcryptjs.compareSync(password, user?.password!);
+
+		if (!passwordValid) {
+			res.status(401).json({
+				ok: false,
+				msg: "Email or password invalid",
+			});
+		}
+
+		const payload = {
+			id: user?.id,
+		};
+
+		jwt.sign(
+			payload,
+			process.env.SECRET!,
+			{ expiresIn: 3600 },
+			(error, token) => {
+				res.json({
+					ok: true,
+					id: user?.id,
+					msg: "Session start",
+					token,
+				});
+			}
+		);
+	} catch (error) {
+		console.log(error);
+		res.json({
+			ok: false,
+			msg: "Error logging in",
+		});
+	}
 };
 
 export { userLogin, userRegister };
