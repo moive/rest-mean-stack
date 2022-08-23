@@ -15,7 +15,7 @@ const task = new Schema<ITask>({
 	creator: {
 		type: Schema.Types.ObjectId,
 		trim: true,
-		required: false,
+		ref: "User",
 	},
 	createdAt: {
 		type: Date,
