@@ -3,6 +3,7 @@ import morgan from "morgan";
 import config from "./config";
 import authRouter from "./routes/auth";
 import cors from "cors";
+import taskRouter from "./routes/tasks";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors());
 
 // Routes
 app.use("/auth", authRouter);
+app.use("/task", taskRouter);
 
 // Static files
 app.use("/", express.static(__dirname + "/public"));
