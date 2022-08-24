@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import task from "../models/task";
+import Task from "../models/task";
 
 const createTask = async (req: Request | any, res: Response) => {
 	const { name } = req.body;
 	const id = req.uid;
 
-	const newTask = new task({ name, creator: id });
+	const newTask = new Task({ name, creator: id });
 
 	await newTask.save();
 
@@ -20,7 +20,7 @@ const allTask = async (req: Request | any, res: Response) => {
 	const id = req.uid;
 
 	try {
-		const tasks = await task.find({ creator: id }).sort({ createdAt: -1 });
+		const tasks = await Task.find({ creator: id }).sort({ createdAt: -1 });
 
 		return res.status(200).json({
 			ok: true,
@@ -34,4 +34,23 @@ const allTask = async (req: Request | any, res: Response) => {
 	}
 };
 
-export { createTask, allTask };
+const updateTask = async (req: Request | any, res: Response) => {
+	const { id } = req.params;
+	const { name } = req.body;
+
+	try {
+		const task = await Task.findByIdAndUpdate(id, { name }, { new: true });
+
+		return res.json({
+			ok: true,
+			task,
+		});
+	} catch (error) {
+		return res.status(404).json({
+			ok: false,
+			msg: "Task not update",
+		});
+	}
+};
+
+export { createTask, allTask, updateTask };
