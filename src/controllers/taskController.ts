@@ -43,14 +43,34 @@ const updateTask = async (req: Request | any, res: Response) => {
 
 		return res.json({
 			ok: true,
+			msg: "Task updated",
 			task,
 		});
 	} catch (error) {
 		return res.status(404).json({
 			ok: false,
-			msg: "Task not update",
+			msg: "Task not updated",
 		});
 	}
 };
 
-export { createTask, allTask, updateTask };
+const deleteTask = async (req: Request | any, res: Response) => {
+	const { id } = req.params;
+
+	try {
+		const task = await Task.findByIdAndRemove(id);
+
+		return res.json({
+			ok: true,
+			msg: "Task deleted",
+			task,
+		});
+	} catch (error) {
+		return res.status(404).json({
+			ok: false,
+			msg: "Task not deleted",
+		});
+	}
+};
+
+export { createTask, allTask, updateTask, deleteTask };
