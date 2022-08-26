@@ -83,6 +83,7 @@ const userLogin = async (req: Request, res: Response) => {
 					ok: true,
 					id: user?.id,
 					msg: "Session start",
+					username: user?.username,
 					token,
 				});
 			}
