@@ -57,7 +57,7 @@ const userLogin = async (req: Request, res: Response) => {
 		if (!user) {
 			res.status(401).json({
 				ok: false,
-				msg: "Email or password are invalid",
+				msg: "Email is invalid",
 			});
 		}
 
@@ -66,7 +66,7 @@ const userLogin = async (req: Request, res: Response) => {
 		if (!passwordValid) {
 			res.status(401).json({
 				ok: false,
-				msg: "Email or password invalid",
+				msg: "Password is not valid",
 			});
 		}
 
