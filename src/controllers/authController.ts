@@ -55,18 +55,18 @@ const userLogin = async (req: Request, res: Response) => {
 		let user = await User.findOne({ email });
 
 		if (!user) {
-			res.status(401).json({
+			return res.status(401).json({
 				ok: false,
-				msg: "Email is invalid",
+				msg: "Email not exist",
 			});
 		}
 
 		const passwordValid = bcryptjs.compareSync(password, user?.password!);
 
 		if (!passwordValid) {
-			res.status(401).json({
+			return res.status(401).json({
 				ok: false,
-				msg: "Password is not valid",
+				msg: "Password is incorrect",
 			});
 		}
 
@@ -74,7 +74,7 @@ const userLogin = async (req: Request, res: Response) => {
 			id: user?.id,
 		};
 
-		jwt.sign(
+		return jwt.sign(
 			payload,
 			process.env.SECRET!,
 			{ expiresIn: 3600 },
