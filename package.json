@@ -7,7 +7,8 @@
     "tsc": "tsc",
     "dev": "ts-node-dev src/index.ts",
     "cp": "cp -r src/public build",
-    "postinstall": "npm run tsc && npm run cp",
+    "postinstall": "tsc",
+    "build": "npm run tsc && npm run cp",
     "start": "node build/index.js"
   },
   "author": "Moive",
