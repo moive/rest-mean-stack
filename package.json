@@ -9,7 +9,7 @@
     "cp": "cp -r src/public build",
     "postinstall": "tsc",
     "cod": "npm run tsc && npm run cp",
-    "start": "npm run cod && node build/index.js"
+    "start": "node build/index.js"
   },
   "author": "Moive",
   "license": "ISC",
