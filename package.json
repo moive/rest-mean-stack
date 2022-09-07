@@ -1,7 +1,7 @@
 {
   "name": "rest-mean-stack",
   "version": "1.0.0",
-  "description": "Project rest MEAN Stack",
+  "description": "Project rest MEAN Stack.",
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
