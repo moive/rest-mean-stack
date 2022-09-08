@@ -4,6 +4,9 @@ import config from "./config";
 import authRouter from "./routes/auth";
 import cors from "cors";
 import taskRouter from "./routes/tasks";
+import swaggerUI from "swagger-ui-express";
+import swaggerJSDoc from "swagger-jsdoc";
+import path from "path";
 
 const app = express();
 
@@ -22,5 +25,28 @@ app.use("/task", taskRouter);
 
 // Static files
 app.use("/", express.static(__dirname + "/public"));
+
+// Docs api
+app.use(
+	"/api/docs",
+	swaggerUI.serve,
+	swaggerUI.setup(
+		swaggerJSDoc({
+			definition: {
+				openapi: "3.0.0",
+				info: {
+					title: "",
+					version: "1.0.0",
+				},
+				servers: [
+					{
+						url: "http://localhost:5000",
+					},
+				],
+			},
+			apis: [`${path.join(__dirname, "./routes/P *.js")}`],
+		})
+	)
+);
 
 export default app;
