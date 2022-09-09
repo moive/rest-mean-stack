@@ -42,9 +42,12 @@ app.use(
 					{
 						url: "http://localhost:5000",
 					},
+					{
+						url: "http://localhost:3000",
+					},
 				],
 			},
-			apis: [`${path.join(__dirname, "./routes/P *.js")}`],
+			apis: [`${path.join(__dirname, "./routes/*.ts")}`],
 		})
 	)
 );

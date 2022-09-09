@@ -5,6 +5,51 @@ import validationErrors from "../middlewares/validationErrors";
 
 const authRouter = express.Router();
 
+/**
+ *  @swagger
+ *  components:
+ *    schemas:
+ *      User:
+ *        type: object
+ *        properties:
+ *          username:
+ *            type: string
+ *            description: This is the username
+ *          email:
+ *            type: string
+ *            description: This is the email
+ *          password:
+ *            type: string
+ *            description: This is the password encrypted with bcryptjs. Need to be a minimum of 6 characters
+ *        required:
+ *          - username
+ *          - email
+ *          - password
+ *        example:
+ *          username: Firstname Lastname
+ *          email: test@example.com
+ *          password: password123
+ */
+
+/**
+ *  @swagger
+ *  /auth/register:
+ *    post:
+ *     summary: Register a new user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       501:
+ *         description: Email already registered
+ *       200:
+ *        description: Registration successful and rerunning with JWT token
+ */
 authRouter.post(
 	"/register",
 	[
