@@ -64,6 +64,38 @@ authRouter.post(
 	],
 	userRegister
 );
+
+/**
+ *  @swagger
+ *  /auth/login:
+ *    post:
+ *     summary: Logging a user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: This is the email
+ *               password:
+ *                 type: string
+ *                 description: This is the password encrypted with bcryptjs. Need to be a minimum of 6 characters
+ *             required:
+ *                - email
+ *                - password
+ *             example:
+ *               email: test@example.com
+ *               password: password123
+ *     responses:
+ *       401:
+ *         description: User is not authorized
+ *       200:
+ *        description: User is authorized and returing the JWT token valid
+ */
 authRouter.post(
 	"/login",
 	[
