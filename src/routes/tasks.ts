@@ -89,6 +89,37 @@ taskRouter.post(
 	createTask
 );
 
+/**
+ *  @swagger
+ *  /task//update/{id}:
+ *    put:
+ *     summary: Update a task
+ *     tags: [Task]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: Id of the task to update
+ *        true: true
+ *      - name: x-auth-token
+ *        in: header
+ *        description: JWT token valid
+ *        true: true
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  name: string
+ *                  description: The new task name
+ *     responses:
+ *       404:
+ *        description: The task you are trying tu actualice does not exist
+ *       200:
+ *        description: Task updated successfully
+ */
 taskRouter.put(
 	"/update/:id",
 	[check("name", "Name is required").not().isEmpty(), verifyToken],
