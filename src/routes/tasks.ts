@@ -126,6 +126,30 @@ taskRouter.put(
 	validationErrors,
 	updateTask
 );
+
+/**
+ *  @swagger
+ *  /task//delete/{id}:
+ *    delete:
+ *     summary: Delete a task
+ *     tags: [Task]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: Id of the task to update
+ *        true: true
+ *      - name: x-auth-token
+ *        in: header
+ *        description: JWT token valid
+ *        true: true
+ *     requestBody:
+ *       required: false
+ *     responses:
+ *       404:
+ *        description: The task you are trying tu delete does not exist
+ *       200:
+ *        description: Task deleted successfully
+ */
 taskRouter.delete("/delete/:id", deleteTask);
 
 export default taskRouter;
