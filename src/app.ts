@@ -49,7 +49,7 @@ app.use(
 					},
 				],
 			},
-			apis: [`${path.join(__dirname, "./routes/*." + extentionFile)}`],
+			apis: [`${path.join(__dirname, "./routes/*.*")}`],
 		})
 	)
 );
