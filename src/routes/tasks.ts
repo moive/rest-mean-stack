@@ -56,6 +56,32 @@ const taskRouter = Router();
  */
 taskRouter.get("/all", [verifyToken], allTask);
 
+/**
+ *  @swagger
+ *  /task/create:
+ *    post:
+ *     summary: Create a new task
+ *     tags: [Task]
+ *     parameters:
+ *      - name: x-auth-token
+ *        in: header
+ *        description: JWT token valid
+ *        true: true
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  name: string
+ *                  description: The task name
+ *     responses:
+ *       200:
+ *        description: Task created successfully
+ */
+
 taskRouter.post(
 	"/create",
 	[check("name", "Name is required").not().isEmpty(), verifyToken],
