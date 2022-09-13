@@ -27,6 +27,8 @@ app.use("/task", taskRouter);
 app.use("/", express.static(__dirname + "/public"));
 
 // Docs api
+const environment = process.env.ENVIRONMENT;
+const extentionFile = !!environment ? "ts" : "js";
 app.use(
 	"/api/docs",
 	swaggerUI.serve,
@@ -47,7 +49,7 @@ app.use(
 					},
 				],
 			},
-			apis: [`${path.join(__dirname, "./routes/*.ts")}`],
+			apis: [`${path.join(__dirname, "./routes/*." + extentionFile)}`],
 		})
 	)
 );
