@@ -35,7 +35,7 @@ app.use(
 			definition: {
 				openapi: "3.0.0",
 				info: {
-					title: "",
+					title: "MEAN api Application",
 					version: "1.0.0",
 				},
 				servers: [
@@ -43,7 +43,7 @@ app.use(
 						url: "http://localhost:5000",
 					},
 					{
-						url: "http://localhost:3000",
+						url: "https://rest-mean-stack.onrender.com",
 					},
 				],
 			},
